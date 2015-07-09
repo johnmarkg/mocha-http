@@ -9,6 +9,7 @@
     var http = require('http');
 
 	var spy = sinon.spy(request, "get");
+	// var spy = sinon.spy(request);
 
 
 	var server = http.createServer(function (req, res) {
@@ -124,6 +125,7 @@
     				param1: 'abc'
     			}
     		}); 
+    		console.info(spy.args[0][0])
     		assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?param1=abc");
     	})
 
@@ -155,7 +157,7 @@
 	    				defaultParam: 'heyhey'
 	    			}
     			}); 
-    		assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?defaultParam=heyhey");
+    		assert.equal(spy.args[0][0], "http://localhost:" + port + "/params?defaultParam=heyhey");
     	});
 
     	it('override default param to null', function(){
@@ -167,7 +169,7 @@
 	    				defaultParam: null
 	    			}
     			}); 
-    		assert.equal(spy.args[0][0],"http://localhost:" + port + "/params");
+    		assert.equal(spy.args[0][0], "http://localhost:" + port + "/params");
     	});
 
 
@@ -181,7 +183,7 @@
 	    				differentParam: 1
 	    			}
     			}); 
-	    	assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?differentParam=1");
+	    	assert.equal(spy.args[0][0], "http://localhost:" + port + "/params?differentParam=1");
 
     	});
 
@@ -191,7 +193,9 @@
 	    			path: '',
 	    			body:{
 	    				bodyData: true
-	    			}
+	    			},
+	    			json: true
+	    			method: 'post'
     			}); 
 	    	assert.deepEqual(spy.args[0][1],{ bodyData: true });
  		})    	

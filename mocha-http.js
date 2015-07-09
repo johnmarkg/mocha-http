@@ -86,8 +86,15 @@
 			assert.equal(res.statusCode, (data.status || 200));	        
 
             if(data.json){
-	            var json = JSON.parse(body);
+            	debug('check JSON');
+            	// debug(typeof body)
+            	var json = body;
+            	if(typeof body !== 'object'){
+					json = JSON.parse(body);
+            	}
+	            
 	            for(var key in data.json){
+	            	debug('compare: ' + key)
 	            	assert.equal(getProperty(json,key), data.json[key])
 	            }
             }
@@ -97,10 +104,21 @@
             }
 		}
 
+		// data.uri = (t.url(data.path, data.params));
+		// data.method = (data.method || 'get').toUpperCase();
+		// delete data.path;
+		// delete data.params;
+
+		// request(data,_cb);
+
 		var args =  [t.url(data.path, data.params, data.log)];
-		if(data.body){
-			args.push(data.body);
-		}
+		delete data.path;
+		delete data.params;		
+		// if(data.body){
+		// 	debug('data.body: ' + JSON.stringify(data.body));
+		// 	args.push(data.body);
+		// }
+		args.push(data);
 		args.push(_cb);
 
 		request[fn].apply(request, args);
