@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for mocha-http/mocha-http.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">mocha-http/mocha-http.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(67 / 67)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">96.97% <small>(32 / 33)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(11 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(67 / 67)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">mocha-http/</a> &#187; mocha-http.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function() {
+&nbsp;
+&nbsp;
+    var assert = require('assert');
+    var request = require('request');
+&nbsp;
+	var portfinder = require('portfinder');
+	var debug = require('debug')('tests:http');
+&nbsp;
+	function Tests(host){
+		this.port = null;
+		this.host = host || process.env.MOCHA_HOST || 'http://localhost';
+		this.defaultParams = {};
+		
+		return this;
+	}
+&nbsp;
+	module.exports = new Tests();
+&nbsp;
+	// access to constructor
+	Tests.prototype.MochaHttp = Tests;
+&nbsp;
+	Tests.prototype.deleteDefaultParam = function(key) {
+		delete this.defaultParams[key];
+		return this;
+	};
+	Tests.prototype.setDefaultParam = function(key, val) {
+		this.defaultParams[key] = val;
+		return this;
+	};
+&nbsp;
+	function addParamTerminator(path){
+		if (path.indexOf('?') &lt; 0) {
+			return '?';
+		} else {
+			return '&amp;';
+		}		
+	}
+&nbsp;
+	Tests.prototype.url = function(path, params) {
+&nbsp;
+		for(var key in this.defaultParams){
+			
+			if(params &amp;&amp; typeof params[key] !== 'undefined'){
+				continue;
+			}
+			path += addParamTerminator(path);
+			path += encodeURIComponent(key) + '=' + encodeURIComponent(this.defaultParams[key])
+		}			
+&nbsp;
+&nbsp;
+		if(params &amp;&amp; Object.keys(params).length &gt; 0){
+			for(var key in params){
+				if(params[key] == null){
+					continue;
+				}
+				path += addParamTerminator(path);
+				path += encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+			}
+		}
+		
+		path = path.replace(/&amp;&amp;/g, '&amp;');
+		debug(this.host + (this.port ? ':'+ this.port : '') + '/' + path);
+		return this.host + (this.port ? ':'+ this.port : '') + '/' + path;
+&nbsp;
+	}
+	Tests.prototype.openPort = function(cb) {
+		var t = this;
+		if(process.env.MOCHA_HOST){
+			return;
+		}
+        portfinder.getPort(function(err,_port){
+        	t.port = _port
+        	cb(err, t.port);
+        });
+	}
+	Tests.prototype.http = function(data,cb) {
+		var t = this;
+		var fn = (data.method || 'get').toLowerCase();
+&nbsp;
+		var _cb = function(err,res,body){
+			if(err){
+				throw err;
+			}
+&nbsp;
+			assert.equal(res.statusCode, (data.status || 200));	        
+&nbsp;
+            if(data.json){
+	            var json = JSON.parse(body);
+	            for(var key in data.json){
+	            	assert.equal(getProperty(json,key), data.json[key])
+	            }
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(typeof cb === 'function'){
+            	cb(err,res,body);		
+            }
+		}
+&nbsp;
+		// assert.doesNotThrow(function(){
+			request[fn]( t.url(data.path, data.params, data.log), _cb);	
+		// },'Error throw on request')
+		
+	}
+&nbsp;
+	function getProperty(o, s) {
+	    s = s.replace(/\[(\w+)\]/g, '.$1');  // convert indexes to properties
+	    s = s.replace(/^\./, ''); // strip leading dot
+	    var a = s.split('.');
+&nbsp;
+	    for (var i = 0, n = a.length; i &lt; n; ++i) {
+	        var key = a[i];
+	        if (typeof o[key] === 'object') {
+	            o = o[key];
+	        } else {
+	            return o[key];
+	        }
+	    }
+	}
+&nbsp;
+&nbsp;
+}).call(this)</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Jul 08 2015 17:42:29 GMT-0700 (PDT)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
