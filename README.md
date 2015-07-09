@@ -42,12 +42,16 @@ describe(function(){
 			params:{
 				'filter': 'abs*'
 			},
+			body:{
+				bodyData: "some text in here"
+			},
 			json:{
 				'[0].object1.key1': true,
 				'[0].object1.key2': false,
 				'[0].object2.key1': 123,
 				'[1]': 'scalar'
 			},
+
 			method: 'GET', // default
 			status: 200, // default
 		}, done)
