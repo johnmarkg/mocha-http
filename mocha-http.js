@@ -39,27 +39,27 @@
 
 	Tests.prototype.url = function(path, params) {
 
-		for(var key in this.defaultParams){
+		// for(var key in this.defaultParams){
 			
-			if(params && typeof params[key] !== 'undefined'){
-				continue;
-			}
-			path += addParamTerminator(path);
-			path += encodeURIComponent(key) + '=' + encodeURIComponent(this.defaultParams[key])
-		}			
+		// 	if(params && typeof params[key] !== 'undefined'){
+		// 		continue;
+		// 	}
+		// 	path += addParamTerminator(path);
+		// 	path += encodeURIComponent(key) + '=' + encodeURIComponent(this.defaultParams[key])
+		// }			
 
 
-		if(params && Object.keys(params).length > 0){
-			for(var key in params){
-				if(params[key] == null){
-					continue;
-				}
-				path += addParamTerminator(path);
-				path += encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
-			}
-		}
+		// if(params && Object.keys(params).length > 0){
+		// 	for(var key in params){
+		// 		if(params[key] == null){
+		// 			continue;
+		// 		}
+		// 		path += addParamTerminator(path);
+		// 		path += encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+		// 	}
+		// }
 		
-		path = path.replace(/&&/g, '&');
+		// path = path.replace(/&&/g, '&');
 		debug(this.host + (this.port ? ':'+ this.port : '') + '/' + path);
 		return this.host + (this.port ? ':'+ this.port : '') + '/' + path;
 
@@ -74,6 +74,33 @@
         	cb(err, t.port);
         });
 	}
+
+	function getQs(defaultParams, params){
+		var qs = {};
+		for(var key in defaultParams){
+			
+			if(params && typeof params[key] !== 'undefined'){
+				continue;
+			}
+			qs[key] = defaultParams[key];
+			// path += addParamTerminator(path);
+			// path += encodeURIComponent(key) + '=' + encodeURIComponent(this.defaultParams[key])
+		}			
+
+
+		if(params && Object.keys(params).length > 0){
+			for(var key in params){
+				if(params[key] == null){
+					continue;
+				}
+				qs[key] = params[key];
+				// path += addParamTerminator(path);
+				// path += encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+			}
+		}	
+		return qs;	
+	}
+
 	Tests.prototype.http = function(data,cb) {
 		var t = this;
 		var fn = (data.method || 'get').toLowerCase();
@@ -85,7 +112,7 @@
 
 			assert.equal(res.statusCode, (data.status || 200));	        
 
-            if(data.json){
+            if(data.resJson){
             	debug('check JSON');
             	// debug(typeof body)
             	var json = body;
@@ -93,9 +120,9 @@
 					json = JSON.parse(body);
             	}
 	            
-	            for(var key in data.json){
+	            for(var key in data.resJson){
 	            	debug('compare: ' + key)
-	            	assert.equal(getProperty(json,key), data.json[key])
+	            	assert.equal(getProperty(json,key), data.resJson[key])
 	            }
             }
 
@@ -111,13 +138,13 @@
 
 		// request(data,_cb);
 
+		data.qs = getQs(this.defaultParams, data.qs)
+		data.qs = getQs(this.defaultParams, data.params)
+
 		var args =  [t.url(data.path, data.params, data.log)];
 		delete data.path;
 		delete data.params;		
-		// if(data.body){
-		// 	debug('data.body: ' + JSON.stringify(data.body));
-		// 	args.push(data.body);
-		// }
+
 		args.push(data);
 		args.push(_cb);
 

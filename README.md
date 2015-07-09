@@ -2,6 +2,8 @@ Utils to assist in testing http requests.  Find an open port, start the server, 
 
 Test running servers by setting `MOCHA_HOST="http://yoururl"` on the command line or when creating the object:
 
+Any [request option](https://github.com/request/request#requestoptions-callback) from request module may be passed in first param of `mochaHttp.http(options, cb)`.
+
 Local tests:
 ```
 // server-module.js

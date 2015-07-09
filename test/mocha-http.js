@@ -9,6 +9,7 @@
     var http = require('http');
 
 	var spy = sinon.spy(request, "get");
+	var postSpy = sinon.spy(request, "post");
 	// var spy = sinon.spy(request);
 
 
@@ -75,7 +76,7 @@
     	it('json check, nested objects',function(done){
     		mochaHttp.http({
     			path: 'json',
-    			json:{
+    			resJson:{
     				'value': 123,
     				'nested.value': 456
     			}
@@ -85,7 +86,7 @@
     	it('json check, nested array',function(done){
     		mochaHttp.http({
     			path: 'array',
-    			json:{
+    			resJson:{
     				'[0]': 123,
     				'[1][1]': 456,
     				'length': 2,
@@ -98,7 +99,7 @@
     	it('json check, nested array',function(done){
     		mochaHttp.http({
     			path: 'array',
-    			json:{
+    			resJson:{
     				'[0]': 123,
     				'[1][1]': 456,
     				'length': 2,
@@ -116,6 +117,7 @@
 		
 		beforeEach(function(){
 			spy.reset();
+			postSpy.reset();
 		})
 
 	   	it('add a param', function(){
@@ -125,8 +127,7 @@
     				param1: 'abc'
     			}
     		}); 
-    		console.info(spy.args[0][0])
-    		assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?param1=abc");
+    		assert.deepEqual(spy.args[0][1].qs, {param1: 'abc'});
     	})
 
 	   	it('2 params', function(){
@@ -137,7 +138,8 @@
     				param2: 'efg'
     			}
     		}); 
-    		assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?param1=abc&param2=efg");
+
+    		assert.deepEqual(spy.args[0][1].qs, {param1: 'abc', param2: 'efg'});
     	})
 
     	it('default param', function(){
@@ -146,7 +148,8 @@
     			.http({
 	    			path: 'params',
     			}); 
-			assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?defaultParam=hey");    			
+
+			assert.deepEqual(spy.args[0][1].qs, {defaultParam: 'hey'});
     	})
 
     	it('override default param', function(){
@@ -157,7 +160,8 @@
 	    				defaultParam: 'heyhey'
 	    			}
     			}); 
-    		assert.equal(spy.args[0][0], "http://localhost:" + port + "/params?defaultParam=heyhey");
+
+    		assert.deepEqual(spy.args[0][1].qs, {defaultParam: 'heyhey'});
     	});
 
     	it('override default param to null', function(){
@@ -169,7 +173,8 @@
 	    				defaultParam: null
 	    			}
     			}); 
-    		assert.equal(spy.args[0][0], "http://localhost:" + port + "/params");
+
+    		assert.deepEqual(spy.args[0][1].qs, {});
     	});
 
 
@@ -183,7 +188,8 @@
 	    				differentParam: 1
 	    			}
     			}); 
-	    	assert.equal(spy.args[0][0], "http://localhost:" + port + "/params?differentParam=1");
+
+	    	assert.deepEqual(spy.args[0][1].qs, {differentParam: 1});
 
     	});
 
@@ -194,11 +200,30 @@
 	    			body:{
 	    				bodyData: true
 	    			},
-	    			json: true
+	    			json: true,
 	    			method: 'post'
     			}); 
-	    	assert.deepEqual(spy.args[0][1],{ bodyData: true });
+
+	    	assert.deepEqual(postSpy.args[0][1].body, { bodyData: true });
  		})    	
+
+ 		it('body and query', function(){
+    		mochaHttp
+    			.http({
+	    			path: '',
+	    			body:{
+	    				bodyData: true
+	    			},
+	    			params: {
+	    				param: 1
+	    			},
+	    			json: true,
+	    			method: 'post'
+    			}); 
+
+	    	assert.deepEqual(postSpy.args[0][1].body, { bodyData: true });
+	    	assert.deepEqual(postSpy.args[0][1].qs, {param: 1});
+ 		})     		
 
 	});
 
@@ -245,7 +270,7 @@
 
 			mochaHttp.http({
 				path: 'json',
-				json:{
+				resJson:{
     				'value': 123,
     				'nested.value': 4567					
 				}
@@ -262,7 +287,7 @@
 	        })
     		mochaHttp.http({
     			path: 'badjson',
-    			json:{
+    			resJson:{
     				'value': 123,
     				'nested.value': 456
     			}
