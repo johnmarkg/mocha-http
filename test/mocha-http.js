@@ -50,7 +50,7 @@
         mochaHttp.openPort(function(err, _port){
             if(err){ throw err; }
             port = _port;
-            server.listen(port, done);                    
+            server.listen(port, done);               
         });		
 	})
 
@@ -179,8 +179,7 @@
 
 
 	describe('fail', function(){
-    	
-
+    
     	// remove mocha handler so we can catch it and check the error
     	// http://stackoverflow.com/questions/9025095/how-can-i-test-uncaught-errors-in-mocha
     	var originalException;
@@ -191,11 +190,6 @@
     	after(function(){
     		process.on('uncaughtException',originalException)
     	})
-
-
-
-
-
 
     	it('status',function(done){
 			
