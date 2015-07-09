@@ -93,7 +93,20 @@
     		},done);    		
     	});
 
- 
+
+    	it('json check, nested array',function(done){
+    		mochaHttp.http({
+    			path: 'array',
+    			json:{
+    				'[0]': 123,
+    				'[1][1]': 456,
+    				'length': 2,
+    				'[1].length': 3
+    			}
+    		},done);    		
+    	});
+
+
 
 	});
 
@@ -170,10 +183,18 @@
     			}); 
 	    	assert.equal(spy.args[0][0],"http://localhost:" + port + "/params?differentParam=1");
 
-    	})
+    	});
 
-
-
+ 		it('body data', function(){
+    		mochaHttp
+    			.http({
+	    			path: '',
+	    			body:{
+	    				bodyData: true
+	    			}
+    			}); 
+	    	assert.deepEqual(spy.args[0][1],{ bodyData: true });
+ 		})    	
 
 	});
 
@@ -250,7 +271,7 @@
 	describe('find open port', function(){
 		it('dont use the same as before', function(done){
 
-			var mochaHttp2 = mochaHttp.MochaHttp();
+			var mochaHttp2 = mochaHttp.MochaHttpUtils();
 	        mochaHttp.openPort(function(err, _port){
 	        	assert.notEqual(_port, port);
 	        	assert.equal(_port, port + 1);
@@ -263,7 +284,7 @@
 	describe('host', function(){
 		it('MOCHA_HOST', function(){
 			process.env.MOCHA_HOST='fakehost';
-			var mochaHttp3 = mochaHttp.MochaHttp();
+			var mochaHttp3 = mochaHttp.MochaHttpUtils();
 	        mochaHttp3.openPort();
 	        assert.throws(function(){
 	    		mochaHttp3.http({
@@ -274,7 +295,7 @@
 
 		it('host passed to constructor', function(){
 			
-			var mochaHttp4 = mochaHttp.MochaHttp('constructor');
+			var mochaHttp4 = mochaHttp.MochaHttpUtils('constructor');
 	        
 	        assert.throws(function(){
 	    		mochaHttp4.http({

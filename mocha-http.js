@@ -97,10 +97,13 @@
             }
 		}
 
-		// assert.doesNotThrow(function(){
-			request[fn]( t.url(data.path, data.params, data.log), _cb);	
-		// },'Error throw on request')
-		
+		var args =  [t.url(data.path, data.params, data.log)];
+		if(data.body){
+			args.push(data.body);
+		}
+		args.push(_cb);
+
+		request[fn].apply(request, args);
 	}
 
 	function getProperty(o, s) {
