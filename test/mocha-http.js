@@ -58,6 +58,7 @@
 
 
 
+
     describe('responses', function(){
 
     	it('default status 200',function(done){
@@ -345,7 +346,7 @@
 	describe('find open port', function(){
 		it('dont use the same as before', function(done){
 
-			var mochaHttp2 = mochaHttp.MochaHttpUtils();
+			// var mochaHttp2 = mochaHttp.MochaHttpUtils();
 	        mochaHttp.openPort(function(err, _port){
 	        	assert.notEqual(_port, port);
 	        	assert.equal(_port, port + 1);
@@ -370,13 +371,17 @@
 		it('host passed to constructor', function(){
 			
 			var mochaHttp4 = mochaHttp.MochaHttpUtils('constructor');
-	        
 	        assert.throws(function(){
 	    		mochaHttp4.http({
 	    			path: ''
 	    		}); 	        	
 	        }, /Invalid URI "constructor\/"/)
 		})  		
+
+		it('distinct objects', function(){
+			var _mochaHttp = mochaHttp.MochaHttpUtils('constructor');
+	        assert.notDeepEqual(_mochaHttp, mochaHttp);		
+		})
 	})
 
 

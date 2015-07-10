@@ -18,7 +18,9 @@
 	module.exports = new Tests();
 
 	// access to constructor
-	Tests.prototype.MochaHttpUtils = Tests;
+	Tests.prototype.MochaHttpUtils = function(host){
+		return new Tests(host);	
+	}
 
 	Tests.prototype.deleteDefaultParam = function(key) {
 		delete this.defaultParams[key];
