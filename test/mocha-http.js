@@ -66,6 +66,15 @@
     		},done);
     	})
 
+    	it('resHeaders',function(done){
+    		mochaHttp.http({
+    			path: '',
+    			resHeaders:{
+    				'content-length': '0'
+    			}
+    		}, done);
+    	})
+
     	it('non default status check',function(done){
     		mochaHttp.http({
     			path: '500',
@@ -233,9 +242,16 @@
     	// remove mocha handler so we can catch it and check the error
     	// http://stackoverflow.com/questions/9025095/how-can-i-test-uncaught-errors-in-mocha
     	var originalException;
+    	var uncaughtListener;
+    	beforeEach(function(){
+    		if(uncaughtListener){
+				process.removeListener('uncaughtException', uncaughtListener);
+    		}
+    		uncaughtListener = null;
+    	});
     	before(function(){
 			originalException = process.listeners('uncaughtException').pop();
-	        process.removeListener('uncaughtException', originalException);    		
+	        process.removeListener('uncaughtException', originalException);
     	});
     	after(function(){
     		process.on('uncaughtException',originalException)
@@ -243,12 +259,21 @@
 
     	it('status',function(done){
 			
-	        process.once("uncaughtException", function (error) {
+			uncaughtListener = function(error){
 	            assert.equal(error.expected, 301);
 	            assert.equal(error.actual, 200);
 	            assert.equal(error.name, "AssertionError");
 	            done();
-	        })
+			}
+
+			process.once("uncaughtException", uncaughtListener);
+
+	        // process.once("uncaughtException", function (error) {
+	        //     assert.equal(error.expected, 301);
+	        //     assert.equal(error.actual, 200);
+	        //     assert.equal(error.name, "AssertionError");
+	        //     done();
+	        // })
 
 
 			mochaHttp.http({
@@ -257,16 +282,34 @@
 			});    			
 
     	});
+    	
+    	it('resHeaders',function(done){
+    	
+			uncaughtListener = function(error){
+	            assert.equal(error.expected, 1);
+	            assert.equal(error.actual, 0);
+	            assert.equal(error.name, "AssertionError");
+	            done();
+			}
+			process.once("uncaughtException", uncaughtListener);
+
+    		mochaHttp.http({
+    			path: '',
+    			resHeaders:{
+    				'content-length': '1'
+    			}
+    		});
+    	})    	
 
     	it('json',function(done){
 			
-	        process.once("uncaughtException", function (error) {
+			uncaughtListener = function(error){
 	            assert.equal(error.expected, 4567);
 	            assert.equal(error.actual, 456);
 	            assert.equal(error.name, "AssertionError");
 	            done();
-	        })
-
+			}
+			process.once("uncaughtException", uncaughtListener);			
 
 			mochaHttp.http({
 				path: 'json',
@@ -281,10 +324,12 @@
 
     	it('malformed json',function(done){
 
-	        process.once("uncaughtException", function (error) {
+			uncaughtListener = function(error){
 	            assert.equal(error.toString(), 'SyntaxError: Unexpected token h');
 	            done();
-	        })
+			}
+			process.once("uncaughtException", uncaughtListener);	
+
     		mochaHttp.http({
     			path: 'badjson',
     			resJson:{

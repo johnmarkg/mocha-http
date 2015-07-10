@@ -29,14 +29,6 @@
 		return this;
 	};
 
-	function addParamTerminator(path){
-		if (path.indexOf('?') < 0) {
-			return '?';
-		} else {
-			return '&';
-		}		
-	}
-
 	Tests.prototype.url = function(path, params) {
 
 		// for(var key in this.defaultParams){
@@ -110,7 +102,15 @@
 				throw err;
 			}
 
-			assert.equal(res.statusCode, (data.status || 200));	        
+			assert.equal(res.statusCode, (data.status || 200));	  
+
+			if(data.resHeaders){
+	            for(var key in data.resHeaders){
+	            	debug('compare headers: ' + key)
+	            	// assert.equal(getProperty(json,key), data.resJson[key])
+	            	assert.equal(res.headers[key], data.resHeaders[key])
+	            }				
+			}      
 
             if(data.resJson){
             	debug('check JSON');
@@ -121,7 +121,7 @@
             	}
 	            
 	            for(var key in data.resJson){
-	            	debug('compare: ' + key)
+	            	debug('compare json response: ' + key)
 	            	assert.equal(getProperty(json,key), data.resJson[key])
 	            }
             }
